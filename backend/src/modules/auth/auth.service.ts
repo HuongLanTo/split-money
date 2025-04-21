@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-const JWT_SECRET = process.env.JWT_SECRET || "defaultsecret";
+const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
 
 export const registerUser = async (input: RegisterInput) => {
     const existingUser = await prisma.user.findUnique({

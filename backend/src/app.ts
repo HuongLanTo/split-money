@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 
 import authRoutes from "./modules/auth/auth.routes";
 import groupsRoutes from "./modules/groups/groups.routes";
+import expensesRoutes from "./modules/expenses/expenses.routes";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/groups", groupsRoutes);
+app.use("/api/expenses", expensesRoutes);
 
 app.get("/", (req, res) => {
     res.send("Split Money is running");

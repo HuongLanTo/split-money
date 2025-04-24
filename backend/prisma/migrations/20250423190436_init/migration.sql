@@ -38,6 +38,7 @@ CREATE TABLE `Expense` (
     `currency` VARCHAR(191) NOT NULL,
     `splitMethod` ENUM('EQUAL', 'CUSTOM', 'PERCENT', 'SHARES') NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `createdById` VARCHAR(191) NOT NULL,
     `groupId` VARCHAR(191) NOT NULL,
     `paidById` VARCHAR(191) NOT NULL,
 
@@ -61,6 +62,9 @@ ALTER TABLE `GroupMember` ADD CONSTRAINT `GroupMember_userId_fkey` FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE `GroupMember` ADD CONSTRAINT `GroupMember_groupId_fkey` FOREIGN KEY (`groupId`) REFERENCES `Group`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Expense` ADD CONSTRAINT `Expense_createdById_fkey` FOREIGN KEY (`createdById`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Expense` ADD CONSTRAINT `Expense_groupId_fkey` FOREIGN KEY (`groupId`) REFERENCES `Group`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

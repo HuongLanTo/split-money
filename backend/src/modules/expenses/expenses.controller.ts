@@ -10,7 +10,7 @@ export const createExpenseController = async (req: Request, res: Response) => {
             res.status(401).json({ error: "Unauthorized." });
             return;
         }
-        if (req.body.groupId && !isUserInGroup(req.body.groupId, createdById)) {
+        if (req.body.groupId && !(await isUserInGroup(req.body.groupId, createdById))) {
             res.status(403).json({ error: "The user doesn't have permission to create an expense in the group." });
             return;
         }
@@ -38,7 +38,7 @@ export const getExpensesController = async (req: Request, res: Response) => {
             res.status(401).json({ error: "Unauthorized." });
             return;
         }
-        if (input.groupId && !isUserInGroup(input.groupId, createdById)) {
+        if (input.groupId && !(await isUserInGroup(input.groupId, createdById))) {
             res.status(403).json({ error: "The user doesn't have permission to see the expenses in the group." });
             return;
         }

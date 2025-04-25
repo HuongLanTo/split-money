@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SplitMethod {
+  EQUAL
+  CUSTOM
+  PERCENT
+  SHARES
+}
+
+model User {
+  id                String            @id @default(cuid())
+  name              String
+  email             String            @unique
+  password          String
+  createdAt         DateTime          @default(now())
+  groups            GroupMember[]
+  expensesPaid      Expense[]         @relation("PaidExpenses")
+  splits            ExpenseSplit[]    
+  createdExpenses   Expense[]         @relation("CreatedExpenses")
+}
+
+model Group {
+  id                String            @id @default(cuid())
+  name              String            
+  createdAt         DateTime          @default(now())
+  members           GroupMember[]     
+  expenses          Expense[]
+}
+
+model GroupMember {
+  id               String            @id @default(cuid())
+  User             User              @relation(fields: [userId], references: [id])
+  userId           String
+  groups           Group             @relation(fields: [groupId], references: [id])
+  groupId          String
+  joinedAt         DateTime          @default(now())
+
+  @@unique([userId, groupId])
+}
+
+model Expense {
+  id              String            @id @default(cuid())
+  description     String
+  total           Float
+  currency        String
+  splitMethod     SplitMethod
+  createdAt       DateTime          @default(now())
+  createdBy       User              @relation("CreatedExpenses", fields: [createdById], references: [id])
+  createdById     String            
+  group           Group?            @relation(fields: [groupId], references: [id])
+  groupId         String?
+  paidBy          User              @relation("PaidExpenses", fields: [paidById], references: [id])
+  paidById        String
+  splits          ExpenseSplit[]
+}
+
+model ExpenseSplit {
+  id              String            @id @default(cuid())
+  user            User              @relation(fields: [userId], references: [id])
+  userId          String
+  expense         Expense           @relation(fields: [expenseId], references: [id])
+  expenseId       String
+  amount          Float
+  percent         Float?
+  shares          Int?
+}

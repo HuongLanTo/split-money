@@ -8,7 +8,6 @@ As a user, I can register, log in, and manage my account securely.
 As a user, I can create groups, add/remove members, and view group details.
 As a user, I can add expenses, specifying title, amount, currency, who paid, and how to split (equally, custom amount, percent, or shares).
 As a user, I can view expenses in a group, see my balances, and check who owes whom.
-As a user, I can receive notifications (future scope) and see monthly summary reports (future scope).
 
 - Project Scope:
 
@@ -97,8 +96,7 @@ Group 1<->N Expense
 Expense 1<->N ExpenseSplit
 ExpenseSplit N<->1 User
 
-![Database Schema](./docs/screenshots/Screenshot 2025-04-25 at 10.48.12.png)
-*Database schema showing relationships between entities*
+![ER Diagram](./docs/screenshots/Screenshot 2025-04-25 at 12.06.30.png)
 
 6. DTO Usage & Validation
 Request/Response DTOs are implemented using TypeScript interfaces and types (e.g., CreateUserInput, ExpenseSplitInput).

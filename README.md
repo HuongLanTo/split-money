@@ -60,6 +60,7 @@ docker compose up --build
 - Add expenses (equal/custom/percent/shares)
 - Track balances (“who owes whom”)
 - View expenses by group/user with pagination, sorting, filtering
+- Validation for APIs requests
 - Full RESTful API (with error handling)
 - Docker & cloud ready (Heroku, Azure)
 - Unit/integration tests (Jest)
@@ -73,19 +74,7 @@ docker compose up --build
 - **Frontend:** ReactJS, TypeScript
 - **Auth:** JWT (stateless sessions)
 - **Testing:** Jest, Supertest
-- **Deployment:** Docker, Heroku/Azure
-
----
-
-## 🗂️ Architecture
-
-### Backend Structure
-![Backend Architecture](./docs/screenshots/Screenshot-2025-04-25-at-10.27.52.png)
-*Controller → Service → Repository/ORM pattern*
-
-### Frontend Structure
-![Frontend Architecture](./docs/screenshots/Screenshot-2025-04-25-at-10.28.49.png)
-*React components, hooks, and state management*
+- **Deployment:** Docker, Azure
 
 ---
 
@@ -118,7 +107,7 @@ docker compose up --build
 | Security (JWT, roles)        | ✅ JWT, bcrypt, role checks             |
 | Software Testing (Jest)      | ✅ Unit/integration tests               |
 | Dockerization                | ✅ Dockerfile & docker-compose.yml      |
-| Cloud Deployment             | ✅ Heroku/Azure ready                   |
+| Cloud Deployment             | ✅ Azure                                |
 | Screenshots & Documentation  | ✅ See [Screenshots](#screenshots)      |
 | Front End                    | ✅ ReactJS + TypeScript                 |
 
@@ -150,12 +139,14 @@ docker compose up --build
 ## ☁️ Deployment
 
 **Backend:**  
-[https://your-splitwise-clone.herokuapp.com](https://your-splitwise-clone.herokuapp.com)  
-or  
-[https://your-app.azurewebsites.net](https://your-app.azurewebsites.net)
+[https://splitmoney-app.azurewebsites.net](https://splitmoney-app.azurewebsites.net)
 
-- Production database: Heroku Postgres / Azure Database for MySQL
+- Production database: Azure Database for MySQL
 - Env vars (`DATABASE_URL`, `JWT_SECRET`, etc.) set via portal
+
+![Backend Deployment](docs/screenshots/deployment.png)
+![Backend Deployment](docs/screenshots/deployment-2.png)
+![Backend Deployment](docs/screenshots/deployment-3.png)
 
 ---
 
@@ -166,7 +157,7 @@ or
   npm test
   ```
 - Test coverage for user, group, expense logic
-- Example tests in `backend/src/__tests__` directory
+- Tests in `backend/src/__tests__` directory
 
 ---
 

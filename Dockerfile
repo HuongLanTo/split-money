@@ -1,10 +1,13 @@
 # Use official Node.js LTS image
-FROM node:20-alpine
+FROM node:18-alpine
+
+# Add shell for Azure SSH/Console compatibility
+RUN apk add --no-cache bash
 
 # Set working directory
 WORKDIR /app
 
-# Copy backend files
+# Copy package.json and package-lock.json for backend
 COPY backend/package*.json ./
 
 RUN npm install
@@ -18,8 +21,8 @@ RUN npx prisma generate
 # Build TypeScript
 RUN npm run build
 
-# Expose the port your app runs on (change if you use a different port)
-EXPOSE 5001
+# Expose port (must be 8080 for Azure)
+EXPOSE 8080
 
-# Start the app (change 'start' if your script is different)
-CMD [ "npm", "run", "dev" ]
+# Run migrations and start the app
+CMD ["/bin/sh", "-c", "npx prisma migrate deploy && npm run start"]
